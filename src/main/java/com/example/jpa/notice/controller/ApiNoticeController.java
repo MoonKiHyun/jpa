@@ -1,9 +1,11 @@
 package com.example.jpa.notice.controller;
 
+import com.example.jpa.notice.NoticeRepository;
+import com.example.jpa.notice.entity.Notice;
+import com.example.jpa.notice.model.NoticeInput;
 import com.example.jpa.notice.model.NoticeModel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ApiNoticeController {
+
+    private final NoticeRepository noticeRepository;
 
     /*
     @GetMapping("/api/notice")
@@ -53,6 +57,7 @@ public class ApiNoticeController {
     }
     */
 
+    /*
     @GetMapping("/api/notice")
     public List<NoticeModel> noticeList() {
 
@@ -65,5 +70,49 @@ public class ApiNoticeController {
     public Long noticeCount() {
 
         return 10L;
+    }
+    */
+
+    /*
+    @PostMapping("/api/notice")
+    public NoticeModel addNotice(@RequestBody NoticeModel noticeModel) {
+
+        noticeModel.setId(1L);
+        noticeModel.setRegDate(LocalDateTime.now());
+
+        return noticeModel;
+    }
+    */
+
+    /*
+    @PostMapping("api/notice")
+    public Notice addNotice(@RequestBody NoticeInput noticeInput) {
+
+        Notice notice = Notice.builder()
+                .title(noticeInput.getTitle())
+                .content(noticeInput.getContent())
+                .regDate(LocalDateTime.now())
+                .build();
+
+        noticeRepository.save(notice);
+
+        return notice;
+    }
+    */
+
+    @PostMapping("/api/notice")
+    public Notice addNotice(@RequestBody NoticeInput noticeInput) {
+
+        Notice notice = Notice.builder()
+                .title(noticeInput.getTitle())
+                .content(noticeInput.getContent())
+                .regDate(LocalDateTime.now())
+                .hits(0)
+                .likes(0)
+                .build();
+
+        noticeRepository.save(notice);
+
+        return notice;
     }
 }
