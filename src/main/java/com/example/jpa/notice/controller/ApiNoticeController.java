@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -114,5 +115,25 @@ public class ApiNoticeController {
         noticeRepository.save(notice);
 
         return notice;
+    }
+
+    @GetMapping("/api/notice/{id}")
+    public Notice notice(@PathVariable Long id) {
+
+        return noticeRepository.findById(id).orElseThrow(null);
+    }
+
+    @PutMapping("/api/notice/{id}")
+    public void updateNotice(@PathVariable Long id, @RequestBody NoticeInput noticeInput) {
+
+        Optional<Notice> notice = noticeRepository.findById(id);
+
+        if (notice.isPresent()) {
+            notice.get().setTitle(noticeInput.getTitle());
+            notice.get().setContent(noticeInput.getContent());
+            notice.get().setUpdateDate(LocalDateTime.now());
+            noticeRepository.save(notice.get());
+        }
+
     }
 }

@@ -1,17 +1,17 @@
 package com.example.jpa.notice.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+
+@Entity
 public class Notice {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,9 @@ public class Notice {
 
     @Column
     private LocalDateTime regDate;
+
+    @Column
+    private LocalDateTime UpdateDate;
 
     @Column
     private int hits;
