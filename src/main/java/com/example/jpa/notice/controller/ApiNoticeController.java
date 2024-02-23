@@ -2,9 +2,12 @@ package com.example.jpa.notice.controller;
 
 import com.example.jpa.notice.NoticeRepository;
 import com.example.jpa.notice.entity.Notice;
+import com.example.jpa.notice.exception.NoticeNotFoundException;
 import com.example.jpa.notice.model.NoticeInput;
 import com.example.jpa.notice.model.NoticeModel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -107,7 +110,6 @@ public class ApiNoticeController {
         Notice notice = Notice.builder()
                 .title(noticeInput.getTitle())
                 .content(noticeInput.getContent())
-                .regDate(LocalDateTime.now())
                 .hits(0)
                 .likes(0)
                 .build();
@@ -123,17 +125,31 @@ public class ApiNoticeController {
         return noticeRepository.findById(id).orElseThrow(null);
     }
 
+    @ExceptionHandler(NoticeNotFoundException.class)
+    public ResponseEntity<String> handlerNoticeNotFoundException(NoticeNotFoundException exception) {
+
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @PutMapping("/api/notice/{id}")
     public void updateNotice(@PathVariable Long id, @RequestBody NoticeInput noticeInput) {
 
-        Optional<Notice> notice = noticeRepository.findById(id);
+        Notice notice = noticeRepository.findById(id).orElseThrow(() ->
+                new NoticeNotFoundException("공지사항의 글이 존재하지 않습니다."));
 
-        if (notice.isPresent()) {
-            notice.get().setTitle(noticeInput.getTitle());
-            notice.get().setContent(noticeInput.getContent());
-            notice.get().setUpdateDate(LocalDateTime.now());
-            noticeRepository.save(notice.get());
-        }
+        notice.setTitle(noticeInput.getTitle());
+        notice.setContent(noticeInput.getContent());
+        noticeRepository.save(notice);
+    }
 
+    @PatchMapping("/api/notice/{id}/hits")
+    public void noticeHits(@PathVariable Long id) {
+
+        Notice notice = noticeRepository.findById(id).orElseThrow(() ->
+                new NoticeNotFoundException("공지사항의 글이 존재하지 않습니다."));
+
+        notice.setHits(notice.getHits() + 1);
+
+        noticeRepository.save(notice);
     }
 }

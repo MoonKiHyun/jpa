@@ -1,5 +1,6 @@
 package com.example.jpa.notice.entity;
 
+import com.example.jpa.global.TimeStamp;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 @Entity
-public class Notice {
+public class Notice extends TimeStamp {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,12 +23,6 @@ public class Notice {
 
     @Column
     private String content;
-
-    @Column
-    private LocalDateTime regDate;
-
-    @Column
-    private LocalDateTime UpdateDate;
 
     @Column
     private int hits;
