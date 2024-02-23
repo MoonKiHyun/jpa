@@ -4,16 +4,10 @@ import com.example.jpa.notice.NoticeRepository;
 import com.example.jpa.notice.entity.Notice;
 import com.example.jpa.notice.exception.NoticeNotFoundException;
 import com.example.jpa.notice.model.NoticeInput;
-import com.example.jpa.notice.model.NoticeModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor

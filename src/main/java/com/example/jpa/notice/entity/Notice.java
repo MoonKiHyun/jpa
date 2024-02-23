@@ -4,8 +4,6 @@ import com.example.jpa.global.TimeStamp;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @Builder
