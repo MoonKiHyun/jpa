@@ -4,6 +4,8 @@ import com.example.jpa.global.TimeStamp;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Builder
@@ -27,4 +29,10 @@ public class Notice extends TimeStamp {
 
     @Column
     private int likes;
+
+    @Column
+    private boolean deleted;
+
+    @Column
+    private LocalDateTime deletedDate;
 }
