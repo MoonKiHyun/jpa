@@ -1,6 +1,7 @@
 package com.example.jpa.notice.entity;
 
 import com.example.jpa.global.TimeStamp;
+import com.example.jpa.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,4 +36,8 @@ public class Notice extends TimeStamp {
 
     @Column
     private LocalDateTime deletedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
