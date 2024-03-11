@@ -1,6 +1,7 @@
 package com.example.jpa.user.entity;
 
 import com.example.jpa.global.TimeStamp;
+import com.example.jpa.user.model.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,4 +28,11 @@ public class User extends TimeStamp {
 
     @Column(nullable = false)
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatus status;
+
+    @Column(nullable = false)
+    private boolean lockYn;
 }
