@@ -377,4 +377,28 @@ public class ApiUserController {
 
         return ResponseEntity.ok().body(userList);
     }
+
+    @GetMapping("/api/admin/user/notice/count")
+    public ResponseEntity<?> userNoticeCount() {
+
+        List<UserNoticeCount> userNoticeCountList = userService.getUserNoticeCount();
+
+        return ResponseEntity.ok().body(ResponseMessage.success(userNoticeCountList));
+    }
+
+    @GetMapping("/api/admin/user/log/count")
+    public ResponseEntity<?> userLogCount() {
+
+        List<UserLogCount> userLogCountList = userService.getUserLogCount();
+
+        return ResponseEntity.ok().body(ResponseMessage.success(userLogCountList));
+    }
+
+    @GetMapping("/api/admin/user/like/best")
+    public ResponseEntity<?> bestLikeCount() {
+
+        List<UserLogCount> userLogCountList = userService.findUserLikeBest();
+
+        return ResponseEntity.ok().body(ResponseMessage.success(userLogCountList));
+    }
 }
