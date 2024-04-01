@@ -13,6 +13,10 @@ public class ResponseMessage {
     private Object body;
 
     public static ResponseMessage fail(String message) {
+        return ResponseMessage.fail(message, null);
+    }
+
+    public static ResponseMessage fail(String message, Object data) {
         return ResponseMessage.builder()
                 .header(ResponseMessageHeader.builder()
                         .result(false)
@@ -22,6 +26,10 @@ public class ResponseMessage {
                         .build())
                 .body(null)
                 .build();
+    }
+
+    public static ResponseMessage success() {
+        return ResponseMessage.success(null);
     }
 
     public static ResponseMessage success(Object data) {
