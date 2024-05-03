@@ -5,6 +5,8 @@ import com.example.jpa.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
@@ -23,6 +25,15 @@ public class Board extends TimeStamp {
     @Column
     private String content;
 
+    @Column
+    private boolean TopYn;
+
+    @Column
+    private LocalDate publishStartDate;
+
+    @Column
+    private LocalDate publishEndDate;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -30,5 +41,4 @@ public class Board extends TimeStamp {
     @ManyToOne
     @JoinColumn(name = "board_type_id")
     private BoardType boardType;
-
 }

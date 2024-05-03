@@ -152,6 +152,7 @@ public class ApiUserController {
                 .username(userInput.getUsername())
                 .phoneNumber(userInput.getPhoneNumber())
                 .password(encodingPassword(userInput.getPassword()))
+                .status(UserStatus.USING)
                 .build();
         userRepository.save(user);
 
